@@ -23,7 +23,7 @@ fs.readdir("./commands/", (err, files) => {
 bot.on("message", message => {
   const sender = message.author;
   const msg = message.content.toUpperCase()
-  const prefix = "#"
+  const prefix = "."
   const cont = message.content.slice(prefix.length).split(" ")
   const args = cont.slice(1)
 
