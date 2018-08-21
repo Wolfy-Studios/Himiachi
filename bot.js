@@ -20,17 +20,16 @@ fs.readdir("./commands/", (err, files) => {
 
 // ===Done Loading commands===
 
-bot.on("message", message => {
+bot.on('message', message => {
   const sender = message.author;
-  const msg = message.content.toUpperCase()
-  const prefix = "."
+  const msg = message.content.toUpperCase();
+  const prefix = "#"
   const cont = message.content.slice(prefix.length).split(" ")
-  const args = cont.slice(1)
 
-  if(message.content.startsWith(prefix)) return;
-
+  if (!message.content.startsWith(prefix)) return;
   const cmd = bot.commands.get(cont[0])
-  if(cmd) cmd.run(bot, message, args);
+  
+  if (cmd) cmd.run(bot, message, args)
 })
 
 bot.on('guildMemberAdd', (member) => require('./events/guildMemberAdd.js')(bot, member))
