@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const bot = new discord.Client();
 const config = require('./config.json');
-const fs - require('fs');
+const fs = require('fs');
 bot.commands = new discord.Collection();
 var prefix = ".";
 
