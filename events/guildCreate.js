@@ -5,7 +5,6 @@ module.exports = (bot, guild) => {
 
   let o = guild.owner
 
-  baselogger(bot, `Guild Join\n\nName: ${guild.name}\n\nMembers: ${guild.memberCount}\n\nLarge: ${guild.large}`, guild.iconURL)
   console.log(`Guild Join\n\nName: ${guild.name}\n\nMembers: ${guild.memberCount}\n\nLarge: ${guild.large}
   
   
