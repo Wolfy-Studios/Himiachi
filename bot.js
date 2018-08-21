@@ -20,17 +20,6 @@ fs.readdir("./commands/", (err, files) => {
 
 // ===Done Loading commands===
 
-bot.on('message', message => {
-  const sender = message.author;
-  const msg = message.content.toUpperCase();
-  const prefix = "#"
-  const cont = message.content.slice(prefix.length).split(" ")
-
-  if (!message.content.startsWith(prefix)) return;
-  const cmd = bot.commands.get(cont[0])
-  
-  if (cmd) cmd.run(bot, message, args)
-})
 
 bot.on('guildMemberAdd', (member) => require('./events/guildMemberAdd.js')(bot, member))
 
@@ -55,4 +44,17 @@ bot.on('ready', () => {
   }, 10000)
     console.log("Himiachi ready!")
 })
+
+bot.on('message', message => {
+  const sender = message.author;
+  const msg = message.content.toUpperCase();
+  const prefix = "#"
+  const cont = message.content.slice(prefix.length).split(" ")
+
+  if (!message.content.startsWith(prefix)) return;
+  const cmd = bot.commands.get(cont[0])
+  
+  if (cmd) cmd.run(bot, message, args)
+})
+
 bot.login(process.env.token);
