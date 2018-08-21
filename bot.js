@@ -1,15 +1,16 @@
-const discord = require('discord.js'),
-bot = new discord.Client(),
-config = require('./config.json'),
-prefix = ".",
-{baselogger} = require('./logger.js')
-bot.login(process.env.token);
+const discord = require('discord.js');
+const bot = new discord.Client();
+const config = require('./config.json');
+const fs - require('fs');
+bot.commands = new discord.Collection();
+var prefix = ".";
+
 
 // ===Loading commands===
 
-bot.commands = new discord.Collection()
 
-require('fs').readdir("./commands/", (err, files) => {
+
+fs.readdir("./commands/", (err, files) => {
   console.log("Loading commands...");
   if (err) return console.log(`Command loading failed!`);
   files.filter(f => f.split(".").pop() === "js").forEach((f, i) => {
@@ -22,7 +23,7 @@ require('fs').readdir("./commands/", (err, files) => {
 bot.on('guildMemberAdd', (member) => require('./events/guildMemberAdd.js')(bot, member))
 
 bot.on('ready', () => {
-  var statuses = ["over Himiachi Base", "bot moosic", "bot gamez"]
+  var statuses = ["In Developement", "Im being revived", "Im alive!"]
   var result = statuses[Math.floor(Math.random() * statuses.length)]
   bot.user.setActivity(`Loading Himiachi...`, {type: "STREAMING", url: "https://twitch.tv/freakinghulk"})
   setTimeout(() => {
@@ -42,20 +43,4 @@ bot.on('ready', () => {
   }, 10000)
     console.log("Himiachi ready!")
 })
- // ==Rotator==
-
-bot.on('message', message => {
-  let mArray = message.content.split(" ")
-  let args = mArray.slice(1)
-  let cmd = bot.commands.get(mArray[0].slice(prefix.length))
-  if (message.author.bot) return;
-  if (message.channel.type == "dm") return;
-  if (!message.content.startsWith(prefix)) return;
-  
-  if (cmd) {
-    if (config.ubl.includes(message.author.id)) return;
-    cmd.run(bot, message, args, discord)
-    console.log(`${message.author.username} used the ${message.content.split(" ")[0]} command.`)
-    baselogger(bot, `**Command Run**\n\n**Command:** ${message.content.split(" ")[0]}\n**User:** ${message.author.tag}\n**Message:** ${message.content}\n**Guild:** ${message.guild.name}\n**Channel:** ${message.channel.name}`);
-  }
-})
+bot.login(process.env.token);
